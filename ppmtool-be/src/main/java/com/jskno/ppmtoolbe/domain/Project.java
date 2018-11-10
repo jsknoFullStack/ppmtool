@@ -1,8 +1,11 @@
 package com.jskno.ppmtoolbe.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jskno.ppmtoolbe.domain.base.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -12,21 +15,21 @@ public class Project extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @NotBlank(message = "Project name is required")
     private String projectName;
 
-    @Column
+    @NotBlank(message = "Project Identifier is required")
+    @Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
+    @Column(updatable = false, unique = true)
     private String projectIdentifier;
 
-    @Column
+    @NotBlank(message = "Project description is required")
     private String description;
 
-    @Column
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date startDate;
 
-    @Column
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date endDate;
 
     public Project() {
