@@ -9,14 +9,12 @@ class UpdateProject extends Component {
   constructor() {
     super();
     this.state = {
-      project: {
-        id: "",
-        projectName: "",
-        projectIdentifier: "",
-        description: "",
-        startDate: "",
-        endDate: ""
-      },
+      id: "",
+      projectName: "",
+      projectIdentifier: "",
+      description: "",
+      startDate: "",
+      endDate: "",
       errors: {}
     };
 
@@ -35,30 +33,45 @@ class UpdateProject extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const { project } = nextProps;
-    this.setState({ project: project });
+    const {
+      id,
+      projectName,
+      projectIdentifier,
+      description,
+      start_date,
+      end_date
+    } = nextProps.project;
+
+    this.setState({
+      id,
+      projectName,
+      projectIdentifier,
+      description,
+      start_date,
+      end_date
+    });
   }
 
   onChange(e) {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
-    this.setState(prevState => ({
-      project: {
-        ...prevState.project,
-        [fieldName]: fieldValue
-      }
-    }));
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.createProject(this.state.project, this.props.history);
+    const updateProject = {
+      id: this.state.id,
+      projectName: this.state.projectName,
+      projectIdentifier: this.state.projectIdentifier,
+      description: this.state.description,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date
+    };
+
+    this.props.createProject(updateProject, this.props.history);
   }
 
   render() {
     const { errors } = this.state;
-    const { project } = this.state;
-
     return (
       <div>
         <div className="project">
@@ -76,7 +89,7 @@ class UpdateProject extends Component {
                       })}
                       placeholder="Project Name"
                       name="projectName"
-                      value={project.projectName}
+                      value={this.state.projectName}
                       onChange={this.onChange}
                     />
                     {errors.projectName && (
@@ -93,7 +106,7 @@ class UpdateProject extends Component {
                       })}
                       placeholder="Unique Project ID"
                       name="projectIdentifier"
-                      value={project.projectIdentifier}
+                      value={this.state.projectIdentifier}
                       onChange={this.onChange}
                       disabled
                     />
@@ -105,7 +118,7 @@ class UpdateProject extends Component {
                       })}
                       placeholder="Project Description"
                       name="description"
-                      value={project.description}
+                      value={this.state.description}
                       onChange={this.onChange}
                     />
                     {errors.description && (
@@ -120,7 +133,7 @@ class UpdateProject extends Component {
                       type="date"
                       className="form-control form-control-lg"
                       name="startDate"
-                      value={project.startDate}
+                      value={this.state.startDate}
                       onChange={this.onChange}
                     />
                   </div>
@@ -130,7 +143,7 @@ class UpdateProject extends Component {
                       type="date"
                       className="form-control form-control-lg"
                       name="endDate"
-                      value={project.endDate}
+                      value={this.state.endDate}
                       onChange={this.onChange}
                     />
                   </div>
