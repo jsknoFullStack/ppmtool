@@ -10,11 +10,11 @@ import java.util.Date;
 @EntityListeners(EntityListener.class)
 public class AbstractEntity {
 
-    @Column(name = "CREATED_BY_USER")
+    @Column(name = "CREATED_BY_USER", updatable = false)
     @JsonIgnore
     private String createdByUser;
 
-    @Column(name = "CREATED_AT")
+    @Column(name = "CREATED_AT", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonIgnore
     private Date createdAt;
