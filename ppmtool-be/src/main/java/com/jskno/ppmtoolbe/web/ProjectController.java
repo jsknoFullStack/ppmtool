@@ -1,20 +1,18 @@
 package com.jskno.ppmtoolbe.web;
 
 import com.jskno.ppmtoolbe.domain.Project;
+import com.jskno.ppmtoolbe.domain.validation.OnCreateChecks;
+import com.jskno.ppmtoolbe.domain.validation.OnUpdateChecks;
 import com.jskno.ppmtoolbe.services.ProjectService;
 import com.jskno.ppmtoolbe.services.ValidationErrorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/project")
@@ -28,10 +26,10 @@ public class ProjectController {
     private ValidationErrorsService validationErrorsService;
 
     @PostMapping("")
-    public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+    public ResponseEntity<?> createNewProject(@Validated(OnCreateChecks.class) @RequestBody Project project, BindingResult result) {
 
         ResponseEntity<?> errorsMap = validationErrorsService.mapValidationErrors(result);
-        return errorsMap != null ? errorsMap : new ResponseEntity<>(projectService.saveOrUpdateProject(project), HttpStatus.CREATED);
+        return errorsMap != null ? errorsMap : new ResponseEntity<>(projectService.saveProject(project), HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectIdentifier}")
@@ -54,9 +52,9 @@ public class ProjectController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateProject(@Valid @RequestBody Project project, BindingResult result) {
+    public ResponseEntity<?> updateProject(@Validated(OnUpdateChecks.class) @RequestBody Project project, BindingResult result) {
          ResponseEntity<?> errorsMap = validationErrorsService.mapValidationErrors(result);
          return errorsMap != null ? errorsMap : new ResponseEntity<>(
-                 projectService.saveOrUpdateProject(project), HttpStatus.OK);
+                 projectService.updateProject(project), HttpStatus.OK);
     }
 }

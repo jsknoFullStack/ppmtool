@@ -1,10 +1,15 @@
 package com.jskno.ppmtoolbe.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jskno.ppmtoolbe.domain.base.AbstractEntity;
+import com.jskno.ppmtoolbe.domain.validation.OnCreateChecks;
+import com.jskno.ppmtoolbe.domain.validation.OnUpdateChecks;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -13,6 +18,8 @@ public class Project extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Null(groups = OnCreateChecks.class)
+    @NotNull(groups = OnUpdateChecks.class)
     private Long id;
 
     @NotBlank(message = "Project name is required")
@@ -31,6 +38,10 @@ public class Project extends AbstractEntity {
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date endDate;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore // because of the response size too big unnecessary
+    private Backlog backlog;
 
     public Project() {
     }
@@ -81,5 +92,13 @@ public class Project extends AbstractEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 }

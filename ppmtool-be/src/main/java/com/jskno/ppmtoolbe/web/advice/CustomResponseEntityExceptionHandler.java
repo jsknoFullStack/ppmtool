@@ -1,5 +1,9 @@
-package com.jskno.ppmtoolbe.exceptions;
+package com.jskno.ppmtoolbe.web.advice;
 
+import com.jskno.ppmtoolbe.exceptions.ProjectIdException;
+import com.jskno.ppmtoolbe.exceptions.ProjectIdExceptionResponse;
+import com.jskno.ppmtoolbe.exceptions.ProjectNotFoundException;
+import com.jskno.ppmtoolbe.exceptions.ProjectNotFoundExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,5 +20,12 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     public final ResponseEntity<Object> handlerProjectIdException(ProjectIdException ex, WebRequest request) {
         ProjectIdExceptionResponse exceptionResponse = new ProjectIdExceptionResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public final ResponseEntity<Object> handleProjectNotFoundException(ProjectNotFoundException ex, WebRequest request) {
+        ProjectNotFoundExceptionResponse exceptionResponse = new ProjectNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+
     }
 }
