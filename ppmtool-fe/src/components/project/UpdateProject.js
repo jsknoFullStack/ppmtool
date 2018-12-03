@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProject } from "../../actions/projectActions";
+import { updateProject } from "../../actions/projectActions";
 import { getProject } from "../../actions/projectActions.js";
 import classnames from "classnames";
 
@@ -67,7 +67,7 @@ class UpdateProject extends Component {
       end_date: this.state.end_date
     };
 
-    this.props.createProject(updateProject, this.props.history);
+    this.props.updateProject(updateProject, this.props.history);
   }
 
   render() {
@@ -165,7 +165,7 @@ class UpdateProject extends Component {
 UpdateProject.propTypes = {
   getProject: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
-  createProject: PropTypes.func.isRequired,
+  updateProject: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -176,5 +176,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProject, createProject }
+  { getProject, updateProject }
 )(UpdateProject);
