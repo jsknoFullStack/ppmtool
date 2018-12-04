@@ -8,6 +8,7 @@ import com.jskno.ppmtoolbe.repositories.BacklogRepository;
 import com.jskno.ppmtoolbe.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class ProjectTaskService {
@@ -33,10 +34,10 @@ public class ProjectTaskService {
         projectTask.setBacklog(backlog);
         projectTask.setProjectSequence(projectIdentifier + "-" + backlog.getPTSequence());
         projectTask.setProjectIdentifier(projectIdentifier);
-        if(projectTask.getPriority() == null) {
+        if(projectTask.getPriority() == null || projectTask.getPriority().equals(0)) {
            projectTask.setPriority(3);
         }
-        if(projectTask.getStatus() == null) {
+        if(StringUtils.isEmpty(projectTask.getStatus())) {
             projectTask.setStatus("TO_DO");
         }
 

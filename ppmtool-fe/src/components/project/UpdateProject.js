@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { updateProject } from "../../actions/projectActions";
 import { getProject } from "../../actions/projectActions.js";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class UpdateProject extends Component {
   constructor() {
@@ -78,6 +79,9 @@ class UpdateProject extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
+                <Link to={`/dashboard`} className="btn btn-light">
+                  Back to Dashboard
+                </Link>
                 <h5 className="display-4 text-center">Update Project form</h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>

@@ -64,7 +64,7 @@ export const deleteProject = projectIdentifier => async dispatch => {
         "Are you sure? This will delete the project and all the data related to it"
       )
     ) {
-      const res = await axios.delete(`/api/project/${projectIdentifier}`);
+      await axios.delete(`/api/project/${projectIdentifier}`);
       dispatch({
         type: DELETE_PROJECT,
         payload: projectIdentifier
