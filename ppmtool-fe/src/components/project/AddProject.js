@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class AddProject extends Component {
   constructor() {
@@ -52,6 +53,9 @@ class AddProject extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
+                <Link to={`/dashboard`} className="btn btn-light">
+                  Back to Dashboard
+                </Link>
                 <h5 className="display-4 text-center">Create Project form</h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>
