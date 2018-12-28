@@ -4,6 +4,8 @@ import com.jskno.ppmtoolbe.exceptions.ProjectIdException;
 import com.jskno.ppmtoolbe.exceptions.ProjectIdExceptionResponse;
 import com.jskno.ppmtoolbe.exceptions.ProjectNotFoundException;
 import com.jskno.ppmtoolbe.exceptions.ProjectNotFoundExceptionResponse;
+import com.jskno.ppmtoolbe.security.exceptions.UsernameAlreadyExistsException;
+import com.jskno.ppmtoolbe.security.exceptions.UsernameAlreadyExistsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,6 +27,13 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     @ExceptionHandler(ProjectNotFoundException.class)
     public final ResponseEntity<Object> handleProjectNotFoundException(ProjectNotFoundException ex, WebRequest request) {
         ProjectNotFoundExceptionResponse exceptionResponse = new ProjectNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleUsernameAlreadyExists(UsernameAlreadyExistsException ex, WebRequest request) {
+        UsernameAlreadyExistsResponse exceptionResponse = new UsernameAlreadyExistsResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 
     }
