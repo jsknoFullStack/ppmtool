@@ -51,3 +51,16 @@ CREATE TABLE `project_task` (
   KEY `backlog_key` (`backlog_id`),
   CONSTRAINT `project_task_fk` FOREIGN KEY (`backlog_id`) REFERENCES `backlog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `created_by_user` varchar(255) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `updated_by_user` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_uk` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
