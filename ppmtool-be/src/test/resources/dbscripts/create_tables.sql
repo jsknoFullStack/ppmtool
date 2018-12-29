@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS `project_task`;
 DROP TABLE IF EXISTS `backlog`;
 DROP TABLE IF EXISTS `project`;
+DROP TABLE IF EXISTS `user`;
 
 
 

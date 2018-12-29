@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jskno.ppmtoolbe.domain.base.AbstractEntity;
 import com.jskno.ppmtoolbe.domain.validation.OnCreateChecks;
 import com.jskno.ppmtoolbe.domain.validation.OnUpdateChecks;
+import com.jskno.ppmtoolbe.security.domain.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -42,6 +43,12 @@ public class Project extends AbstractEntity {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore // because of the response size too big unnecessary
     private Backlog backlog;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String projectLeader;
 
     public Project() {
     }
@@ -100,5 +107,21 @@ public class Project extends AbstractEntity {
 
     public void setBacklog(Backlog backlog) {
         this.backlog = backlog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getProjectLeader() {
+        return projectLeader;
+    }
+
+    public void setProjectLeader(String projectLeader) {
+        this.projectLeader = projectLeader;
     }
 }
