@@ -35,6 +35,14 @@ public class ProjectController {
                 new ResponseEntity<>(projectService.saveProject(project, principal.getName()), HttpStatus.CREATED);
     }
 
+    @PutMapping("")
+    public ResponseEntity<?> updateProject(@Validated(OnUpdateChecks.class) @RequestBody Project project,
+                                           BindingResult result, Principal principal) {
+        ResponseEntity<?> errorsMap = validationErrorsService.mapValidationErrors(result);
+        return errorsMap != null ? errorsMap : new ResponseEntity<>(
+                projectService.updateProject(project, principal.getName()), HttpStatus.OK);
+    }
+
     @GetMapping("/{projectIdentifier}")
     public ResponseEntity<?> getProjectByIdentifier(@PathVariable String projectIdentifier,
                                                     Principal principal) {
@@ -55,11 +63,4 @@ public class ProjectController {
                 HttpStatus.OK);
     }
 
-    @PutMapping("")
-    public ResponseEntity<?> updateProject(@Validated(OnUpdateChecks.class) @RequestBody Project project,
-                       BindingResult result, Principal principal) {
-         ResponseEntity<?> errorsMap = validationErrorsService.mapValidationErrors(result);
-         return errorsMap != null ? errorsMap : new ResponseEntity<>(
-                 projectService.updateProject(project, principal.getName()), HttpStatus.OK);
-    }
 }

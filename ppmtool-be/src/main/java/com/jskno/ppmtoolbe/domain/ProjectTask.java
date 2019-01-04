@@ -1,5 +1,6 @@
 package com.jskno.ppmtoolbe.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jskno.ppmtoolbe.domain.base.AbstractEntity;
 
@@ -27,6 +28,7 @@ public class ProjectTask extends AbstractEntity {
 
     private Integer priority;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dueDate;
 
     @ManyToOne(fetch = FetchType.EAGER)

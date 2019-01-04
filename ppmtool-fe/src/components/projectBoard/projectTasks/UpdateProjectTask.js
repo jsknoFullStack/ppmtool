@@ -150,7 +150,7 @@ class UpdateProjectTask extends Component {
                       "is-invalid": errors.dueDate
                     })}
                     name="dueDate"
-                    value={this.state.dueDate || ""}
+                    value={this.state.dueDate}
                     onChange={this.onChange}
                   />
                   {errors.dueDate && (

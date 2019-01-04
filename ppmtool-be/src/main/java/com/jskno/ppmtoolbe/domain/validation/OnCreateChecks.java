@@ -1,4 +1,6 @@
 package com.jskno.ppmtoolbe.domain.validation;
 
-public interface OnCreateChecks {
+import javax.validation.groups.Default;
+
+public interface OnCreateChecks extends Default {
 }

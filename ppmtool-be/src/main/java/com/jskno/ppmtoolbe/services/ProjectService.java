@@ -43,7 +43,7 @@ public class ProjectService {
     public Project updateProject(Project project, String username) {
 
         Project existingProject = this.findProjectByIdentifier(project.getProjectIdentifier(), username);
-        if(project.getId().equals(existingProject.getId())) {
+        if(!project.getId().equals(existingProject.getId())) {
             throw new ProjectIdException("Existing DDBB Project id '" +
                     existingProject.getId() + "' does not match the Updated Project " + project.getId());
         }
@@ -61,11 +61,7 @@ public class ProjectService {
     }
 
     private Project save(Project project) {
-        try {
-            return projectRepository.save(project);
-        } catch (Exception e) {
-            throw new ProjectIdException("Project ID '" + project.getProjectIdentifier() + "' already exists");
-        }
+        return projectRepository.save(project);
     }
 
     public Project findProjectByIdentifier(String projectIdentifier, String username) {

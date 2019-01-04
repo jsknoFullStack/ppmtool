@@ -39,8 +39,8 @@ class UpdateProject extends Component {
       projectName,
       projectIdentifier,
       description,
-      start_date,
-      end_date
+      startDate,
+      endDate
     } = nextProps.project;
 
     this.setState({
@@ -48,8 +48,8 @@ class UpdateProject extends Component {
       projectName,
       projectIdentifier,
       description,
-      start_date,
-      end_date
+      startDate,
+      endDate
     });
   }
 
@@ -64,8 +64,8 @@ class UpdateProject extends Component {
       projectName: this.state.projectName,
       projectIdentifier: this.state.projectIdentifier,
       description: this.state.description,
-      start_date: this.state.start_date,
-      end_date: this.state.end_date
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
     };
 
     this.props.updateProject(updateProject, this.props.history);

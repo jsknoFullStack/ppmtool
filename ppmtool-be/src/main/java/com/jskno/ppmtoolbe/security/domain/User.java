@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,13 +23,14 @@ public class User extends AbstractEntity implements UserDetails {
     private Long id;
 
     @Email(message = "Username needs to be an email")
-    @NotBlank(message = "username is required")
+    @NotBlank(message = "Username is required")
     @Column(unique = true)
     private String username;
 
     @NotBlank(message = "Please enter your full name")
     private String fullName;
 
+    @NotNull
     @NotBlank(message = "Password field is required")
     private String password;
 
